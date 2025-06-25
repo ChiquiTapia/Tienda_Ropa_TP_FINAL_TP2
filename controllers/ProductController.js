@@ -1,7 +1,7 @@
 import Product from "../models/Product.js";
 
 class ProductController {
-  // Obtener todos los productos
+  
   getAllProductController = async (req, res) => {
     try {
       const products = await Product.findAll();
@@ -17,7 +17,7 @@ class ProductController {
     }
   };
 
-  // Obtener producto por ID
+  
   getProductByIdController = async (req, res) => {
     try {
       const { id } = req.params;
@@ -40,7 +40,7 @@ class ProductController {
     }
   };
 
-  // Crear un nuevo producto
+  
   createProductController = async (req, res) => {
     try {
       const { Titulo, descripcion, precio, image } = req.body;
@@ -62,7 +62,7 @@ class ProductController {
     }
   };
 
-  // Actualizar un producto
+  
   updateProductController = async (req, res) => {
     try {
       const { id } = req.params;
@@ -88,7 +88,7 @@ class ProductController {
     }
   };
 
-  // Eliminar un producto
+
   deleteProductController = async (req, res) => {
     try {
       const { id } = req.params;

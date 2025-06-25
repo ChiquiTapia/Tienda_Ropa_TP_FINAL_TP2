@@ -8,14 +8,14 @@ class Product extends Model {
 
 Product.init(
   {
-    Titulo: DataTypes.STRING,
-    descripcion: {
+    Name: DataTypes.STRING,
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       mail: true,
     },
-    precio: {
+    price: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },

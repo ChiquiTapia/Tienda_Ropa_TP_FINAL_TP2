@@ -34,7 +34,7 @@ class UserController {
         mail,
         pass,
       });
-      console.log(`🚀 ~ UserController ~ createUserController= ~ user:`, user);
+
       res.status(201).send({
         success: true,
         message: user,
@@ -52,10 +52,10 @@ class UserController {
       const { mail, pass } = req.body;
       const user = await this.userService.login({ mail, pass });
 
-      res.cookie("token", user);
       res.status(200).send({
         success: true,
         message: "Usuario logueado",
+        user,
       });
     } catch (error) {
       res.status(400).send({
@@ -64,16 +64,19 @@ class UserController {
       });
     }
   };
+
   me = async (req, res) => {
     try {
-      const { token } = req.cookies;
-      const user= await this.userService.me(token)
+      const { mail, pass } = req.body;
+      const user = await this.userService.me({ mail, pass });
+
       res.status(200).send({
         success: true,
-        message: "Usuario me",
+        message: "Usuario autenticado",
+        user,
       });
     } catch (error) {
-      res.status(400).send({
+      res.status(401).send({
         success: false,
         message: error.message,
       });
