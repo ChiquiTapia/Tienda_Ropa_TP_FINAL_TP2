@@ -17,7 +17,7 @@ class UserService {
   };
 
   createUserService = async (data) => {
-    // Aseguramos RoleId válido, o por defecto 1
+ 
     if (!data.RoleId || ![1, 2].includes(data.RoleId)) {
       data.RoleId = 1;
     }
@@ -30,7 +30,7 @@ class UserService {
     const user = await User.findOne({ where: { mail } });
     if (!user) throw new Error("Usuario no encontrado");
 
-    // Como no usás hash, comparás directo:
+   
     if (user.pass !== pass) throw new Error("Contraseña incorrecta");
 
     return {
