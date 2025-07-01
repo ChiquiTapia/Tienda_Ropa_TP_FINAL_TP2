@@ -1,15 +1,14 @@
 import express from "express";
 import router from "./router/router.js";
-import connection from "./connection/connection.js";
+import connection from "./config/connection.js";
 import { SERVER_PORT } from "./config/config.js";
 
 import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 
-
-
-app.use(router);
+app.use(express.json());
+app.use("/", router);
 
 await connection.sync({ force: false });
 

@@ -85,7 +85,8 @@ class CartController {
   
   removeProductFromCartController = async (req, res) => {
     try {
-      const { userId, productId } = req.body;
+      const { id: userId } = req.params;
+      const { productId } = req.body;
 
       const cart = await Cart.findOne({ where: { UserId: userId } });
       if (!cart) {
@@ -117,7 +118,7 @@ class CartController {
  
   clearCartController = async (req, res) => {
     try {
-      const { userId } = req.body;
+      const { userId } = req.params;
 
       const cart = await Cart.findOne({ where: { UserId: userId } });
       if (!cart) {

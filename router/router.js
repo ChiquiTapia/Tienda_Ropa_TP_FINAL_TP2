@@ -1,6 +1,8 @@
 import { Router } from "express";
 import userRouter from "./userRouter.js";
-import rolesRouter from "./rolesRouter.js";
+import rolesRouter from "./roleRouter.js";
+import productRouter from "./productRouter.js"
+import cartRouter from "./cartRouter.js"
 
 const router = Router();
 

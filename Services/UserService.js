@@ -1,32 +1,36 @@
-import { User, Role } from "../models/index.js";
+import { User } from "../models/index.js";
 
 class UserService {
   getAllUserService = async () => {
     const users = await User.findAll({
       attributes: ["id", "name", "mail", "RoleId"],
-      include: {
-        model: Role,
-        attributes: ["roleName"],
-      },
     });
     return users;
   };
 
-  getlUserServiceById = () => {
-    return "Get all users Services";
+  getUserServiceById = async (id) => {
+    const user = await User.findByPk(id, {
+      attributes: ["id", "name", "mail", "RoleId"],
+    });
+    if (!user) throw new Error("Usuario no encontrado");
+    return user;
   };
 
   createUserService = async (data) => {
-    const user = await User.create(data); // data incluye name, mail, pass (sin hash)
-    return user.name;
+    // Aseguramos RoleId válido, o por defecto 1
+    if (!data.RoleId || ![1, 2].includes(data.RoleId)) {
+      data.RoleId = 1;
+    }
+    const user = await User.create(data);
+    return user;
   };
 
   login = async (data) => {
     const { mail, pass } = data;
-
     const user = await User.findOne({ where: { mail } });
     if (!user) throw new Error("Usuario no encontrado");
 
+    // Como no usás hash, comparás directo:
     if (user.pass !== pass) throw new Error("Contraseña incorrecta");
 
     return {
@@ -39,12 +43,10 @@ class UserService {
 
   me = async (data) => {
     const { mail, pass } = data;
-
     const user = await User.findOne({ where: { mail } });
     if (!user || user.pass !== pass) {
       throw new Error("Credenciales inválidas");
     }
-
     return {
       id: user.id,
       name: user.name,

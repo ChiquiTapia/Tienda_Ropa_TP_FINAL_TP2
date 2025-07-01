@@ -1,0 +1,27 @@
+{
+  "name": "tpfinal_tiendaropa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChiquiTapia/Tienda_Ropa_TP_FINAL_TP2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChiquiTapia/Tienda_Ropa_TP_FINAL_TP2/issues"
+  },
+  "homepage": "https://github.com/ChiquiTapia/Tienda_Ropa_TP_FINAL_TP2#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "sequelize": "^6.37.7"
+  }
+}

@@ -12,29 +12,39 @@ class UserController {
       });
     } catch (error) {
       res.status(400).send({
-        success: false,
-        message: error.message,
+      success: false,
+      message: error.message,
+      error: error.errors?.map((e) => e.message),
       });
     }
   };
 
-  getUserByIdController = (req, res) => {
-    const user = this.userService.getlUserServiceById();
-    res.status(200).send({
-      success: true,
-      message: user,
-    });
+  getUserByIdController = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await this.userService.getUserServiceById(id);
+      res.status(200).send({
+        success: true,
+        message: user,
+      });
+    } catch (error) {
+      res.status(404).send({
+      success: false,
+      message: error.message,
+      error: error.errors?.map((e) => e.message),
+      });
+    }
   };
 
   createUserController = async (req, res) => {
     try {
-      const { name, mail, pass } = req.body;
+      const { name, mail, pass, RoleId } = req.body;
       const user = await this.userService.createUserService({
         name,
         mail,
         pass,
+        RoleId,
       });
-
       res.status(201).send({
         success: true,
         message: user,
@@ -43,6 +53,7 @@ class UserController {
       res.status(400).send({
         success: false,
         message: error.message,
+        error: error.errors?.map((e) => e.message),
       });
     }
   };
@@ -51,7 +62,6 @@ class UserController {
     try {
       const { mail, pass } = req.body;
       const user = await this.userService.login({ mail, pass });
-
       res.status(200).send({
         success: true,
         message: "Usuario logueado",
@@ -59,29 +69,14 @@ class UserController {
       });
     } catch (error) {
       res.status(400).send({
-        success: false,
-        message: error.message,
+      success: false,
+      message: error.message,
+      error: error.errors?.map((e) => e.message),
       });
     }
   };
 
-  me = async (req, res) => {
-    try {
-      const { mail, pass } = req.body;
-      const user = await this.userService.me({ mail, pass });
 
-      res.status(200).send({
-        success: true,
-        message: "Usuario autenticado",
-        user,
-      });
-    } catch (error) {
-      res.status(401).send({
-        success: false,
-        message: error.message,
-      });
-    }
-  };
 }
 
 export default UserController;
