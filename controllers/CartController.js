@@ -31,6 +31,7 @@ class CartController {
       res.status(400).send({
         success: false,
         message: error.message,
+        error: error.errors?.map((e) => e.message),
       });
     }
   };
@@ -78,6 +79,7 @@ class CartController {
       res.status(400).send({
         success: false,
         message: error.message,
+        error: error.errors?.map((e) => e.message),
       });
     }
   };
@@ -110,7 +112,8 @@ class CartController {
     } catch (error) {
       res.status(400).send({
         success: false,
-        message: error.message,
+        mmessage: error.message,
+        error: error.errors?.map((e) => e.message),
       });
     }
   };
@@ -138,6 +141,7 @@ class CartController {
       res.status(400).send({
         success: false,
         message: error.message,
+        error: error.errors?.map((e) => e.message),
       });
     }
   };
