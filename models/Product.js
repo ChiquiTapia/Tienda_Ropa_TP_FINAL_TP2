@@ -24,7 +24,7 @@ Product.init(
       allowNull: false,
       validate: {
         isFloat: { msg: "El precio debe ser un número" },
-        min: { args: [1000], msg: "El precio debe ser mayor a mil" },
+        min: { args: [1000], msg: "El precio debe ser mayor a $1000" },
       },
     },
     image: {

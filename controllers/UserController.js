@@ -1,5 +1,5 @@
 import UserService from "../services/UserService.js";
-
+import { validarDatosEntrada } from "../utils/validaciones.js";
 class UserController {
   userService = new UserService();
 
@@ -39,6 +39,7 @@ class UserController {
   createUserController = async (req, res) => {
     try {
       const { name, mail, pass, RoleId } = req.body;
+      validarDatosEntrada({ name, mail, pass });
       const user = await this.userService.createUserService({
         name,
         mail,
@@ -61,6 +62,7 @@ class UserController {
   login = async (req, res) => {
     try {
       const { mail, pass } = req.body;
+      validarDatosEntrada({ mail, pass });
       const user = await this.userService.login({ mail, pass });
       res.status(200).send({
         success: true,

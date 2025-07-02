@@ -1,5 +1,5 @@
 import { User } from "../models/index.js";
-
+import { Cart } from "../models/index.js";
 class UserService {
   getAllUserService = async () => {
     const users = await User.findAll({
@@ -16,14 +16,18 @@ class UserService {
     return user;
   };
 
-  createUserService = async (data) => {
- 
-    if (!data.RoleId || ![1, 2].includes(data.RoleId)) {
-      data.RoleId = 1;
-    }
-    const user = await User.create(data);
-    return user;
-  };
+ createUserService = async (data) => {
+  if (!data.RoleId || ![1, 2].includes(data.RoleId)) {
+    data.RoleId = 1;
+  }
+
+  const user = await User.create(data);
+
+  
+  await Cart.create({ UserId: user.id });
+
+  return user;
+};
 
   login = async (data) => {
     const { mail, pass } = data;

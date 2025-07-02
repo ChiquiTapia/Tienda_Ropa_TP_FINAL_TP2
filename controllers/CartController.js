@@ -1,4 +1,5 @@
 import { Cart, Product, CartProduct } from "../models/index.js";
+import { validarDatosEntrada } from "../utils/validaciones.js";
 
 class CartController {
  
@@ -40,6 +41,7 @@ class CartController {
   addProductToCartController = async (req, res) => {
     try {
       const { userId, productId, quantity } = req.body;
+      validarDatosEntrada({ userId, productId });
 
       const cart = await Cart.findOne({ where: { UserId: userId } });
       if (!cart) {
@@ -89,7 +91,9 @@ class CartController {
     try {
       const { id: userId } = req.params;
       const { productId } = req.body;
-
+      
+      validarDatosEntrada({ userId, productId });
+      
       const cart = await Cart.findOne({ where: { UserId: userId } });
       if (!cart) {
         return res.status(404).send({

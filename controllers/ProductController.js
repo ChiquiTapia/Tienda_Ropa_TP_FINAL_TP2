@@ -1,4 +1,5 @@
 import Product from "../models/Product.js";
+import { validarDatosEntrada } from "../utils/validaciones.js";
 
 class ProductController {
   
@@ -46,7 +47,7 @@ class ProductController {
   createProductController = async (req, res) => {
   try {
     const { name, description, price, image } = req.body; 
-
+    validarDatosEntrada({ name, description, image });
     const newProduct = await Product.create({
       name,
       description,
@@ -71,6 +72,7 @@ class ProductController {
  updateProductController = async (req, res) => {
   try {
     const { id } = req.params;
+    validarDatosEntrada(req.body);
     const product = await Product.findByPk(id);
 
     if (!product) {

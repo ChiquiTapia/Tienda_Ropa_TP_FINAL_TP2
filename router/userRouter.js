@@ -7,9 +7,6 @@ const userRouter = Router();
 
 userRouter.post("/login", userController.login);
 userRouter.post("/register", userController.createUserController);
-
-
-
 userRouter.get("/", userController.getAllUserController);
 userRouter.get("/:id", userController.getUserByIdController);
 
